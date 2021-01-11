@@ -81,7 +81,7 @@ int main() {//main
 	cout << "There are currently " << totalOccupied << " occupied rooms" 	<< endl;
 
 	if((totalRooms - totalOccupied) != 0) {//if
-		cout << (totalRooms - totalOccupied) << " rooms are available at the moment" << endl;
+		cout << "We have " << (totalRooms - totalOccupied) << " rooms available" << endl;
 	}//if
 	else {//else
 		cout << "Sorry for the inconvenience, no rooms are currently available" << endl;
