@@ -12,16 +12,16 @@ using namespace std;
 int main() {//main
 //Variables used:
 	int num = 0;	//User input
-	int sum = 0;	//Running total for
+	int sum = 0;	//Running total from 1 to num (1+2+...num)
 
 //Display prompt
 	cout 	<< "Please enter a positive integer: ";
-	cin		>> num;
+	cin	>> num;
 
 //Input Validation: Check if number given by user is a positive integer
 	while(num <= 0) {//while
 		cout 	<< "ERROR! Please enter a positive integer: ";
-		cin		>> num;
+		cin	>> num;
 	}//while
 	cout		<< endl;
 
