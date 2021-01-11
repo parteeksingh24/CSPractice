@@ -38,7 +38,9 @@ int main() {//main
 //Get input for the # of rooms (and occupied rooms) for each floor (from 1 to total # of floors):
 	for(int i = 1; i <= floors; i++) {//for
 		if(i == REMOVED_FLOOR) {//if
-			continue;
+			continue;	/* If the condition is met, this will break that current iteration
+							of the loop and "continue" with the next iteration, if needed
+						*/
 		}//if
 
 		cout << "How many rooms are on floor " << i << "?: ";
