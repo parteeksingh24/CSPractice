@@ -26,7 +26,7 @@ int main() {//main
 	cout		<< endl;
 
 //Calculate sum (Alternate method is to use sum = (num * (num + 1)) / 2, rather than a loop!
-	for(int i = 0; i <= num; i++) {//for
+	for(int i = 1; i <= num; i++) {//for
 		sum = sum + i;
 	}//for
 
