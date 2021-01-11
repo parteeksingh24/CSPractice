@@ -17,7 +17,13 @@ int main() {//main
 //Display prompt
 	cout 	<< "Please enter a positive integer: ";
 	cin		>> num;
-	cout	<< endl;
+
+//Input Validation: Check if number given by user is a positive integer
+	while(num <= 0) {//while
+		cout 	<< "ERROR! Please enter a positive integer: ";
+		cin		>> num;
+	}//while
+	cout		<< endl;
 
 //Calculate sum (Alternate method is to use sum = (num * (num + 1)) / 2, rather than a loop!
 	for(int i = 0; i <= num; i++) {//for
