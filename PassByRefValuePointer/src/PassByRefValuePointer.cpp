@@ -65,3 +65,9 @@ void passByPointer(int *intPtr) {//byPointer
 	*intPtr = 30;	//Dereference the int pointer and give it a value of 30
 	cout << *intPtr	<< endl;
 }//byPointer
+
+//-------------------------------------------------------------------------------------------------
+/* NOTES:
+
+
+*/
