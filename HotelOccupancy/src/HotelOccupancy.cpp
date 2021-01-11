@@ -69,6 +69,10 @@ int main() {//main
 //Calculate the occupancy rate for hotel:
 	cout << endl;
 	percentOccupied = ( (static_cast<double>(totalOccupied))  / totalRooms) * 100;
+			/* The totalOccupied variable was converted into a double to allow the
+				program to perform floating point division, so we can get a percentage
+				for the hotel occupancy
+			*/
 
 //Display all information and end program:
 	cout << "Our hotel has "  << totalRooms << " rooms!" 					<< endl;
