@@ -30,6 +30,12 @@ int main() {//main
 	for(int i = 1; i <= 12; i++) {//for
 		cout << "Total rainfall (in mm) for month " << i << ": ";
 		cin  >> rainfallData[i];
+
+		while(rainfallData[i] < 0) {//while
+			cout << "Error! Please enter a positive value only." << endl;
+			cout << "Rainfall (in mm) for month " << i << ": ";
+			cin  >> rainfallData[i];
+		}//while
 	}//for
 	cout << endl;
 	cout << "Here are the monthly rainfall stats" << endl;
@@ -44,22 +50,22 @@ int main() {//main
 	}//for
 
 //Calculate average rainfall, and print both total and average amounts:
-	averageRainfall = totalRainfall	 /	12;
+	averageRainfall = ((double) totalRainfall)	 /	12;
 	cout << "Total rainfall for the year is " << totalRainfall 					<< endl;
 	cout << "On average, there was " <<
 			fixed << setprecision(2) << averageRainfall << " mm of rainfall" 	<< endl;
 
 //Find the highest and lowest numbers:
 	highest = 0;
+	lowest = 0;
+
 	for(int i = 1; i <= 12; i++) {//for
 		if(rainfallData[i] > rainfallData[highest]) {//if
 			highest = i;
 		}//if
-	}//for
-	lowest = 0;
-	for(int i = 1; i <= 12; i++) {//for
 		if(rainfallData[i] < rainfallData[lowest]) {//if
 			lowest = i;
+
 		}//if
 	}//for
 
