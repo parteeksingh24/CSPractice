@@ -15,6 +15,7 @@
  */
 
 #include <iostream>
+#include <iomanip>					//setprecision
 using namespace std;
 
 int main() {//main
@@ -44,8 +45,9 @@ int main() {//main
 
 //Calculate average rainfall, and print both total and average amounts:
 	averageRainfall = totalRainfall	 /	12;
-	cout << "Total rainfall for the year is " << totalRainfall << endl;
-	cout << "On average, there was " << averageRainfall << " mm of rainfall per month" << endl;
+	cout << "Total rainfall for the year is " << totalRainfall 					<< endl;
+	cout << "On average, there was " <<
+			fixed << setprecision(2) << averageRainfall << " mm of rainfall" 	<< endl;
 
 //Find the highest and lowest numbers:
 	highest = 0;
@@ -61,8 +63,8 @@ int main() {//main
 		}//if
 	}//for
 
-	cout << "The most rain came in month "  << highest 		<< endl;
-	cout << "The least rain came in month " << (lowest + 1) << endl;
+	cout << "The most rain came in month "  << highest 							<< endl;
+	cout << "The least rain came in month " << (lowest + 1) 					<< endl;
 
 	cout << "Program ending, have a nice day!" << endl;
 	return 0;
