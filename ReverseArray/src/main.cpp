@@ -30,8 +30,8 @@ int main() {//main
 	cout << "Now in reverse: " << endl;
 	arrPtr = reverse(numbers, SIZE);
 	for(int i = 0; i < SIZE; i++) {//for
-		cout << "\t" << *(arrPtr + i) << " ";
-		//cout << arrPtr[i] << endl;
+		cout << "\t" << arrPtr[i] << " ";
+		//Alternatively: cout << "\t" << *(arrPtr + i) << " ";
 	}//for
 
 //Expand the array and print:
@@ -39,7 +39,8 @@ int main() {//main
 	cout << "Doubling the array: " << endl;
 	arrPtr = expand(arrPtr, SIZE);
 	for(int i = 0; i < (2 * SIZE); i++) {//for
-		cout << "\t" << *(arrPtr + i) << " ";
+		cout << "\t" << arrPtr[i] << " ";
+		//Alternatively: cout << "\t" << *(arrPtr + i) << " ";
 	}//for
 
 //Shift the array and print:
@@ -47,7 +48,8 @@ int main() {//main
 	cout << "Now after we shift the array: " << endl;
 	arrPtr = shift(arrPtr, SIZE);
 	for(int i = 0; i < (2*SIZE + 1); i++) {//for
-		cout << "\t" << *(arrPtr + i) << " ";
+		cout << "\t" << arrPtr[i] << " ";
+		//Alternatively: cout << "\t" << *(arrPtr + i) << " ";
 	}//for
 
 //Free up dynamically allocated memory:
