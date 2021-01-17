@@ -79,11 +79,12 @@ int* expand(int arr[], int size) {//expandArray
 	int* copy = new int[newSize];
 
 	for(int i = 0; i < size; i++) {//for
-		copy[i] = arr[i];
-	}//for
-
-	for(int k = size; k < newSize; k++) {//for
-		copy[k] = 0;
+		if(i < size) {//if (we are still within original array size)
+			copy[i] = arr[i];
+		}//if
+		else {//else
+			copy[i] = 0;	//All other values (beyond original array) are set to 0
+		}//else
 	}//for
 
 	return copy;
@@ -92,7 +93,7 @@ int* expand(int arr[], int size) {//expandArray
 int* shift(int arr[], int size) {//shiftArray
 	int newSize = size + 1;
 	int* shiftPtr = new int[newSize];
-	shiftPtr[0] = 0;
+	shiftPtr[0] = 0;		//Initialize first element of new array to 0, based on instructions
 
 	for(int i = 1; i <= newSize; i++) {//for
 		shiftPtr[i] = arr[i - 1];
