@@ -21,13 +21,13 @@ int main() {//main
 	int jars[SIZE];
 
 //Find the number of jars sold for each salsa type:
-	cout << "Please enter the amount of jars sold for each salsa below. " 				<< endl;
+	cout << "Please enter the amount of jars sold for each salsa below. " 		<< endl;
 	for(int i = 0; i < SIZE; i++) {//for
 		cout << salsa[i] << ": ";
 		cin  >> jars[i];		//Read in the input into the array for sales numbers
 
 		while(jars[i] < 0  || (cin.good() == false)) {//while
-			cout << "ERROR: Please enter a positive integer only." 						<< endl;
+			cout << "ERROR: Please enter a positive integer only." 				<< endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << salsa[i] << ": ";
@@ -38,10 +38,10 @@ int main() {//main
 //Print information:
 	cout << endl << "Salsa sales report" << endl;
 	cout << 		"==================" << endl;
-	cout << "Total sales: " 	 					<< getTotal(jars) 			<< endl << endl;
+	cout << "Total sales: " 	 					<< getTotal(jars) 	<< endl << endl;
 
 	for(int i = 0; i < SIZE; i++) {//for
-		cout << "# of " << salsa[i] << " sold is " 	<< jars[i] 							<< endl;
+		cout << "# of " << salsa[i] << " sold is " 	<< jars[i] 					<< endl;
 	}//for
 
 	cout << endl;
@@ -49,7 +49,7 @@ int main() {//main
 	smallest(salsa, jars);
 
 //End program:
-	cout << endl << "Program ending, have a nice day!" 									<< endl;
+	cout << endl << "Program ending, have a nice day!" 							<< endl;
 	return 0;
 }//main
 
@@ -81,30 +81,49 @@ void largest(string sales[], int nums[]) {//mostSold
 
 	for(int i = 0; i < vect.size(); i++) {//for
 		if(vect.size() == 1) {//if
+			cout 		<< sales[vect.at(i)] 		<< " had the most sales with "
+						<<  nums[vect.at(0)];
+
 			if(nums[vect.at(0)] == 1) {//if
-				cout 	<< sales[vect.at(i)] 			<< " had the most sales with "
-						<< nums[vect.at(0)] 			<< " jar sold"	 			<< endl;
-				return;
+				cout	<< " jar sold"	 			<< endl;
 			}//if
 			else {//else
-				cout 	<< sales[vect.at(i)]			<< " had the most sales with "
-						<< nums[vect.at(0)]				<< " jars sold"				<< endl;
+				cout 	<< " jars sold"				<< endl;
 			}//else
-		}//if
+
+			return;
+		}//outer if
 		else if(vect.size() == 2) {//else if
-			cout 		<< sales[vect.at(0)] 			<< " and "
-						<< sales[vect.at(1)] 			<< " had the most sales with "
-						<< nums[vect.at(0)]				<< " jars sold"				<< endl;
+			cout 	<< sales[vect.at(0)] 			<< " and "
+					<< sales[vect.at(1)] 			<< " had the most sales with "
+					<< nums[vect.at(0)];
+
+			if(nums[vect.at(0)] == 1) {//if
+				cout 	<< " jar sold"	<< endl;
+			}//if
+			else {//else
+				cout	<< " jars sold"	<< endl;
+			}//else
+
 			return;
 		}//else if
 		else {}
 	}//for
 
 	for(int i = 0; i <= vect.size() - 2; i++) {//for
-		cout 			<< sales[vect.at(i)] 			<< ", ";
+		cout 			<< sales[vect.at(i)] 		<< ", ";
 	}//for
-	cout << "and " 		<< sales[vect.back()] 			<< " had the most sales with "
-						<< nums[vect.at(0)]				<< " jars sold"				<< endl;
+
+	cout << "and " 		<< sales[vect.back()]		<< " had the most sales with "
+						<< nums[vect.at(0)];
+
+	if(nums[vect.at(0)] == 1) {//if
+		cout			<< " jar sold"				<< endl;
+	}//if
+	else {//else
+		cout 			<< " jars sold"				<< endl;
+	}//else
+
 }//mostSold
 
 void smallest(string sales[], int nums[]) {//leastSold
@@ -117,7 +136,7 @@ void smallest(string sales[], int nums[]) {//leastSold
 		}//if
 	}//for
 
-	for(int i = 0; i < 5; i++) {//fpr
+	for(int i = 0; i < 5; i++) {//for
 		if(nums[i] == nums[smallest]) {//if
 			returnVect.push_back(i);
 		}//if
@@ -125,35 +144,47 @@ void smallest(string sales[], int nums[]) {//leastSold
 
 	for(int i = 0; i < returnVect.size(); i++) {//for
 		if(returnVect.size() == 1) {//if
+			cout 		<< sales[returnVect.at(i)] 		<< " had the least sales with "
+						<< nums[returnVect.at(0)];
+
 			if(nums[returnVect.at(0)] == 1) {//if
-				cout 	<< sales[returnVect.at(i)] 		<< " had the least sales with "
-						<< nums[returnVect.at(0)] 		<< " jar sold"	 			<< endl;
-				return;
+				cout	<< " jar sold"	 				<< endl;
 			}//if
 			else {//else
-				cout 	<< sales[returnVect.at(i)]		<< " had the least sales with "
-						<< nums[returnVect.at(0)]		<< " jars sold"				<< endl;
+				cout 	<< " jars sold"					<< endl;
 			}//else
-		}//if
+
+			return;
+		}//outer if
 		else if(returnVect.size() == 2) {//else if
-			cout 	<< sales[returnVect.at(0)] 			<< " and "
-					<< sales[returnVect.at(1)] 			<< " had the least sales with "
-					<< nums[returnVect.at(0)]			<< " jars sold"				<< endl;
+			cout 		<< sales[returnVect.at(0)] 		<< " and "
+						<< sales[returnVect.at(1)] 		<< " had the least sales with "
+						<< nums[returnVect.at(0)];
+
+			if(nums[returnVect.at(0)] == 1) {//if
+				cout 	<< " jar sold"	<< endl;
+			}//if
+			else {//else
+				cout	<< " jars sold"	<< endl;
+			}//else
+
 			return;
 		}//else if
 		else {}
-		}//for
+	}//for
 
 	for(int i = 0; i <= returnVect.size() - 2; i++) {//for
 		cout 			<< sales[returnVect.at(i)] 		<< ", ";
 	}//for
+
+	cout << "and " 		<< sales[returnVect.back()]		<< " had the least sales with "
+						<< nums[returnVect.at(0)];
+
 	if(nums[returnVect.at(0)] == 1) {//if
-		cout << "and " 		<< sales[returnVect.back()] 	<< " had the least sales with "
-							<< nums[returnVect.at(0)]		<< " jar sold"			<< endl;
+		cout			<< " jar sold"					<< endl;
 	}//if
 	else {//else
-		cout << "and " 		<< sales[returnVect.back()] 	<< " had the least sales with "
-							<< nums[returnVect.at(0)]		<< " jars sold"			<< endl;
+		cout 			<< " jars sold"					<< endl;
 	}//else
 
 }//leastSold
