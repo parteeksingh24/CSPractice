@@ -7,7 +7,6 @@
 //============================================================================
 
 #include <iostream>
-//#include <cctype>
 using namespace std;
 
 int 	length (char []);
