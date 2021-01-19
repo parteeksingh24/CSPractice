@@ -7,12 +7,14 @@
 //============================================================================
 
 #include <iostream>
+#include <iomanip>			//for setprecision()
 using namespace std;
 
-int 	length (char []);
+int 	length (const char []);
 void 	reverse(char*);
 int 	wordCount(const char*);
-int 	wordCount(string);		//Overloaded version of the "wordCount" function
+int 	wordCount(string);			//Overloaded version of the "wordCount" function
+float 	avgLetters(const char*);
 
 int main(void) {//main
 	char str[] = "Hello";
@@ -26,6 +28,12 @@ int main(void) {//main
 	string text = "C++ is very fun!";
 	cout << wordCount(text)		<< endl;				//Will call the overloaded string function, print 4
 
+	char sentence[] = "Let's see how many words we have on average here!";
+	cout << setprecision(1) << fixed << avgLetters(sentence) << endl; 	//Should display 3.8
+			//setprecision(1) and fixed limits answer to 1 value after the decimal
+		//without fixed, we would have 1 value total (including both whole and fractional parts)
+		//with only fixed, it simply converts to fixed fixed point notation, so it converts exponents to floating point
+
 
 	cout << "Program ending, have a nice day!" << endl;
 	return 0;
@@ -34,7 +42,7 @@ int main(void) {//main
 /* FUNCTIONS:
  * ====================================================
  */
-int length(char word[]) {//stringLength
+int length(const char word[]) {//stringLength
 	int counter = 0;
 
 	while(word[counter] != '\0') {//while
@@ -92,3 +100,23 @@ int wordCount(string word) {//wordCount (string)
 	return counter;
 */
 }//wordCount (string)
+
+float avgLetters(const char* text) {//averageLetterCount
+//average number of letters in each word.
+	int words = wordCount(text);
+	int letters = 0;
+	float average = 0.0;
+
+	for(int i = 0; i < length(text); i++) {//for
+		if(isalpha(text[i]) == true) {//if
+			letters++;
+		}//if
+	}//for
+
+	average = (static_cast<float>(letters)) / words;
+		/* This is done to ensure we are using floating point division, not integer division
+			(if at least one of the numbers is a floating point number (float/double), it will
+			output the answer as a float/double as well).
+		*/
+	return average;
+}//averageLetterCount
