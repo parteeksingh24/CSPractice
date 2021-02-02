@@ -11,11 +11,15 @@ using namespace std;
 
 //FUNCTION PROTOTYPES:
 	string 	reverse(string);			//Reverses a given string, used by "decimalToBinary" function
-	string	decimalToBinary(int);		//Converts a decimal # (integer) to a binary # (string)
+	string	decimalToBinary(int);		//CONVERTS a decimal # (integer) to a binary # (string)
 	bool	checkBinary(string);		//Determines if a given string is a binary #, used by "binaryToDecimal"
-	int 	binaryToDecimal(string);	//Converts from a binary # to a decimal #
-	string	showHex(int);				//Change to hexadecimal naming system (for numbers 10-15)
+	int 	binaryToDecimal(string);	//CONVERTS from a binary # to a decimal #
 
+	string	showHex(int);				//Change to hexadecimal naming system (for numbers 10-15)
+	string	decimalToHex(int);			//CONVERTS a decimal # (int) into a hexadecimal #
+
+	int		showDec(string);			//Change a value in hex to its' decimal equivalent
+	int 	hexToDecimal(string);		//CONVERTS a hex value into a decimal value
 
 int main() {//main
 //VARIABLES:
@@ -87,7 +91,19 @@ int main() {//main
 
 					break;
 				case 3: //Call decimalToHex function
-					cout << "You are in 3" << endl;
+					cout << "Enter a non-negative decimal number: ";
+					cin	 >> decimalNum;
+
+					if(decimalNum < 0) {//if (the given number is negative)
+						cout << "Error: Please enter a non-negative number (0 and above) only" << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						break;
+					}//if
+					else {//else
+						cout << "The number " << decimalNum << " in hexadecimal is: "
+								<< decimalToHex(decimalNum) << endl;
+					}//else
 
 
 					break;
@@ -181,5 +197,71 @@ int binaryToDecimal(string inputStr) {//toDecimal
 string showHex(int decNum) {//showHexForm
 	string returnStr = "";
 
+	if(decNum <= 9) {//if
+		returnStr = to_string(decNum);
+	}//if
+	else if(decNum == 10) {//else if
+		returnStr = "a";
+	}//else if
+	else if(decNum == 11) {//else if
+		returnStr = "b";
+	}//else if
+	else if(decNum == 12) {//else if
+		returnStr = "c";
+	}//else if
+	else if(decNum == 13) {//else if
+		returnStr = "d";
+	}//else if
+	else if(decNum == 14) {//else if
+		returnStr = "e";
+	}//else if
+	else {//else
+		returnStr = "f";
+	}//else
+
 	return returnStr;
 }//showHexForm
+
+string decimalToHex(int decNum) {//toHexadecimal
+	string hexNum 	= "";				//To store the hex value that will be returned by function
+	int quotient 	= decNum / 16;
+	int remainder 	= decNum % 16;
+	hexNum			+= showHex(remainder);
+
+	while(quotient != 0) {//while
+		remainder	= quotient % 16;
+		hexNum		+= showHex(remainder);		//Convert the integer remainder into its hex equivalent
+		quotient	= quotient / 16;
+	}//while
+
+	return reverse(hexNum);
+}//toHexadecimal
+
+int showDec(string hexValue) {//showDecimalVersion
+	int returnVal = 0;
+
+	if(hexValue == "f") {//if
+		returnVal = 15;
+	}//if
+	else if(hexValue == "e") {//else if
+		returnVal = 14;
+	}//else if
+	else if(hexValue == "d") {//else if
+		returnVal = 13;
+	}//else if
+	else if(hexValue == "c") {//else if
+		returnVal = 12;
+	}//else if
+	else if(hexValue == "b") {//else if
+		returnVal = 11;
+	}//else if
+	else if(hexValue == "a") {//else if
+		returnVal = 10;
+	}//else if
+	else {//else
+		returnVal = stoi(hexValue);
+	}//else
+
+	return returnVal;
+}//showDecimalVersion
+
