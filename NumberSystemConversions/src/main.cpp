@@ -73,19 +73,45 @@ int main() {//main
 					cout << "Enter a binary number up to 8 bits long: ";
 					cin >> userInput;
 
-					if(checkBinary(userInput) == false) {//if (the given number is not binary)
-						cout << "Error: Please enter a binary number (only include 1s and 0s)." << endl;
+//					if(checkBinary(userInput) == false) {//if (the given input is not binary)
+//						cout << "Error: Please enter a binary number (only include 1s and 0s)." << endl;
+//						cin.clear();
+//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//						break;
+//					}//if
+//					else if(userInput.length() > 8) {//else if (the given # is more than 8 digits long)
+//						cout << "Error: The maximum length is 8 digits, please try again." 		<< endl;
+//						cin.clear();
+//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//						break;
+//					}//else if
+//					else {//else
+//						cout << "The number "	<< userInput 	<< " in decimal is: "
+//								<< binaryToDecimal(userInput)	<< endl;
+//						break;
+//					}//else
+
+					if(checkBinary(userInput) == false) {//if (the given input is not binary)
+						if(userInput.length() > 8) {//if	(the string entered is longer than 8 characters)
+							cout << "Error: Please enter a binary # (only 1s and 0s) up to 8 digits long." << endl;
+						}//if
+						else {//else
+							//when the given value is less than 8 characters, the only error is not having all binary values
+							cout << "Error: Please enter a binary number (only 1s and 0s)."					<< endl;
+						}//else
+
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
-					else if(userInput.length() > 8) {//else if (the given # is more than 8 digits long)
-						cout << "Error: The maximum length is 8 digits, please try again." 		<< endl;
+					else if(userInput.length() > 8) {//else if	(the input is in binary form, but longer than 8 bits)
+						cout << "Error: the maximum length is 8 digits, please try again."					<< endl;
+
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//else if
-					else {//else
+					else {//else	(the input is both binary AND less than or equal to 8 bits long, so we convert and display result)
 						cout << "The number "	<< userInput 	<< " in decimal is: "
 								<< binaryToDecimal(userInput)	<< endl;
 						break;
@@ -110,15 +136,43 @@ int main() {//main
 				case 4: //Call hexToDecimal function
 					cout << "Enter a hexadecimal number, up to 4 digits long: ";
 					cin  >> userInput;
+//
+//					if(userInput.length() > 4) {//if
+//						cout << "Error: The maximum number of digits is 4. Please try again." << endl;
+//						cin.clear();
+//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//						break;
+//					}//if
+//					else if(checkHexadecimal(userInput) == false) {//else if
+//						cout << "Error: Please enter a valid hex number. The options are 0-9, a-f." << endl;
+//						cin.clear();
+//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//						break;
+//					}//else if
+//					else {//else
+//						cout << "The number " << userInput << " in decimal is: "
+//								<< hexToDecimal(userInput) << endl;
+//						break;
+//					}//else
 
-					if(userInput.length() > 4) {//if
-						cout << "Error: The maximum number of digits is 4. Please try again." << endl;
+					if(checkHexadecimal(userInput) == false) {//if (the given input is not a string of 0-9, a-f)
+						if(userInput.length() > 4) {//if
+							cout << "Error: Please enter a hexadecimal number up to 4 digits long.\n"
+									"The options are the numbers 0-9, and the letters a-f." << endl;
+						}//if
+						else {//else
+							cout << "Error: Please enter a hexadecimal number. \n"
+									"The options are the numbers 0-9, and the letters a-f." << endl;
+						}//else
+
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
-					else if(checkHexadecimal(userInput) == false) {//else if
-						cout << "Error: Please enter a valid hex number. The options are 0-9, a-f." << endl;
+					else if(userInput.length() > 4) {//else if
+						cout << "Error: The maximum length for the number is 4 digits.\n"
+								"Please try again." << endl;
+
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
