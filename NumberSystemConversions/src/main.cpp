@@ -18,7 +18,8 @@ using namespace std;
 	string	showHex(int);				//Change to hexadecimal naming system (for numbers 10-15)
 	string	decimalToHex(int);			//CONVERTS a decimal # (int) into a hexadecimal #
 
-	int		showDec(string);			//Change a value in hex to its' decimal equivalent
+	int		showDec(char);				//Change a value in hex to its' decimal equivalent
+	bool	checkHexadecimal(string);	//Determines if a given input is a valid hex number (0-9, a-f)
 	int 	hexToDecimal(string);		//CONVERTS a hex value into a decimal value
 
 int main() {//main
@@ -105,11 +106,27 @@ int main() {//main
 								<< decimalToHex(decimalNum) << endl;
 					}//else
 
-
 					break;
 				case 4: //Call hexToDecimal function
-					cout << "You are in 4" << endl;
+					cout << "Enter a hexadecimal number, up to 4 digits long: ";
+					cin  >> userInput;
 
+					if(userInput.length() > 4) {//if
+						cout << "Error: The maximum number of digits is 4. Please try again." << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						break;
+					}//if
+					else if(checkHexadecimal(userInput) == false) {//else if
+						cout << "Error: Please enter a valid hex number. The options are 0-9, a-f." << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						break;
+					}//else if
+					else {//else
+						cout << "The number " << userInput << " in decimal is: "
+								<< hexToDecimal(userInput) << endl;
+					}//else
 
 					break;
 				case 9:	//Exit the program
@@ -127,7 +144,7 @@ int main() {//main
 
 //FUNCTIONS:
 //----------------------------------------------------------------
-string reverse(string input) {//reverseString
+string	reverse(string input) {//reverseString
 	string returnStr = "";			//This is the reversed string
 	for(int i = input.size() - 1; i >= 0; i--) {//for	(prints from end of string to beginning)
 		returnStr += input[i];		//Adds each character of original input to returning string
@@ -136,7 +153,7 @@ string reverse(string input) {//reverseString
 	return returnStr;	//return the reversed string
 }//reverseString
 
-string decimalToBinary(int decNum) {//toBinary
+string	decimalToBinary(int decNum) {//toBinary
 	//Using repeated division:
 		string str 			= "";			//The converted number (in binary form)
 		int quotient		= decNum / 2;	//Will truncate any decimal/"floating point" part
@@ -177,7 +194,7 @@ bool checkBinary(string binaryNum) {//checkBinary
 	return isBinary;
 }//checkBinary
 
-int binaryToDecimal(string inputStr) {//toDecimal
+int	binaryToDecimal(string inputStr) {//toDecimal
 	string binaryNum 	= reverse(inputStr);	//Start from least significant bit (LSB)
 	int decimalNum		= 0;					//The converted number in decimal form
 
@@ -194,7 +211,7 @@ int binaryToDecimal(string inputStr) {//toDecimal
 	return decimalNum;
 }//toDecimal
 
-string showHex(int decNum) {//showHexForm
+string	showHex(int decNum) {//showHexForm
 	string returnStr = "";
 
 	if(decNum <= 9) {//if
@@ -222,7 +239,7 @@ string showHex(int decNum) {//showHexForm
 	return returnStr;
 }//showHexForm
 
-string decimalToHex(int decNum) {//toHexadecimal
+string	decimalToHex(int decNum) {//toHexadecimal
 	string hexNum 	= "";				//To store the hex value that will be returned by function
 	int quotient 	= decNum / 16;
 	int remainder 	= decNum % 16;
@@ -237,31 +254,56 @@ string decimalToHex(int decNum) {//toHexadecimal
 	return reverse(hexNum);
 }//toHexadecimal
 
-int showDec(string hexValue) {//showDecimalVersion
+int	showDec(char hexValue) {//showDecimalVersion
 	int returnVal = 0;
 
-	if(hexValue == "f") {//if
+	if(hexValue == 'f') {//if
 		returnVal = 15;
 	}//if
-	else if(hexValue == "e") {//else if
+	else if(hexValue == 'e') {//else if
 		returnVal = 14;
 	}//else if
-	else if(hexValue == "d") {//else if
+	else if(hexValue == 'd') {//else if
 		returnVal = 13;
 	}//else if
-	else if(hexValue == "c") {//else if
+	else if(hexValue == 'c') {//else if
 		returnVal = 12;
 	}//else if
-	else if(hexValue == "b") {//else if
+	else if(hexValue == 'b') {//else if
 		returnVal = 11;
 	}//else if
-	else if(hexValue == "a") {//else if
+	else if(hexValue == 'a') {//else if
 		returnVal = 10;
 	}//else if
 	else {//else
-		returnVal = stoi(hexValue);
+		returnVal = (hexValue - '0');
 	}//else
 
 	return returnVal;
 }//showDecimalVersion
 
+bool checkHexadecimal(string hexNum) {//checkHex
+	bool result = true;
+
+	for(int i = 0; i < hexNum.size(); i++) {//for
+		if(showDec(hexNum[i]) < 0 || showDec(hexNum[i]) > 15) {//if
+			result = false;
+		}//if
+	}//for
+
+	return result;
+}//checkHex
+
+int	hexToDecimal(string hexValue) {//toDecimal
+	string reverseValue = reverse(hexValue);
+	int temp			= 0;		//Stores any converted hex values (10-15) as their decimal equivalents
+	int decimalNum 		= 0;
+
+	for(int i = 0; i < reverseValue.size(); i++) {//for
+		temp = showDec(reverseValue[i]);
+
+		decimalNum += (temp * (pow(16, i)));
+	}//for
+
+	return decimalNum;
+}//toDecimal
