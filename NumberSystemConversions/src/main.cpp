@@ -10,7 +10,7 @@
 using namespace std;
 
 //FUNCTION PROTOTYPES:
-	string 	reverse(string);			//Reverses a given string, used by "decimalToBinary" function
+	string 	reverse(string);			//Reverses a given string
 	string	decimalToBinary(int);		//CONVERTS a decimal # (integer) to a binary # (string)
 	bool	checkBinary(string);		//Determines if a given string is a binary #, used by "binaryToDecimal"
 	int 	binaryToDecimal(string);	//CONVERTS from a binary # to a decimal #
@@ -66,9 +66,9 @@ int main() {//main
 					else {//else (the decimal number is 0 and above)
 						cout << "The number "	<< decimalNum 	<< " in binary is: "
 								<< decimalToBinary(decimalNum)	<< endl;
+						break;
 					}//else
 
-					break;
 				case 2: //Call binaryToDecimal function
 					cout << "Enter a binary number up to 8 bits long: ";
 					cin >> userInput;
@@ -88,9 +88,9 @@ int main() {//main
 					else {//else
 						cout << "The number "	<< userInput 	<< " in decimal is: "
 								<< binaryToDecimal(userInput)	<< endl;
+						break;
 					}//else
 
-					break;
 				case 3: //Call decimalToHex function
 					cout << "Enter a non-negative decimal number: ";
 					cin	 >> decimalNum;
@@ -104,9 +104,9 @@ int main() {//main
 					else {//else
 						cout << "The number " << decimalNum << " in hexadecimal is: "
 								<< decimalToHex(decimalNum) << endl;
+						break;
 					}//else
 
-					break;
 				case 4: //Call hexToDecimal function
 					cout << "Enter a hexadecimal number, up to 4 digits long: ";
 					cin  >> userInput;
@@ -126,16 +126,15 @@ int main() {//main
 					else {//else
 						cout << "The number " << userInput << " in decimal is: "
 								<< hexToDecimal(userInput) << endl;
+						break;
 					}//else
 
-					break;
 				case 9:	//Exit the program
 					cout << endl << "Program ending, have a nice day!";
 					break;
 				default: //If none of the options are chosen, an error message will display
 					cout << "Error: Please select an option from the menu below. \n"
 						 << "The valid choices are the numbers 1, 2, 3, 4, and 9" << endl;
-
 			}//switch
 		}//while
 
@@ -257,7 +256,7 @@ string	decimalToHex(int decNum) {//toHexadecimal
 int	showDec(char hexValue) {//showDecimalVersion
 	int returnVal = 0;
 
-	if(hexValue == 'f') {//if
+	if(		hexValue == 'f') {//if
 		returnVal = 15;
 	}//if
 	else if(hexValue == 'e') {//else if
