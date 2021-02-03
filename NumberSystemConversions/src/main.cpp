@@ -295,14 +295,14 @@ bool checkHexadecimal(string hexNum) {//checkHex
 }//checkHex
 
 int	hexToDecimal(string hexValue) {//toDecimal
-	string reverseValue = reverse(hexValue);
-	int temp			= 0;		//Stores any converted hex values (10-15) as their decimal equivalents
-	int decimalNum 		= 0;
+	string reverseValue = reverse(hexValue);	//Allows our for loop to start from the most significant digit and increment up
+	int temp			= 0;	//Stores the converted hex values (10-15) as their decimal equivalents
+	int decimalNum 		= 0;	//Holds the running total for the decimal value
 
 	for(int i = 0; i < reverseValue.size(); i++) {//for
 		temp = showDec(reverseValue[i]);
 
-		decimalNum += (temp * (pow(16, i)));
+		decimalNum += (	(pow(16, i)) * temp	);
 	}//for
 
 	return decimalNum;
