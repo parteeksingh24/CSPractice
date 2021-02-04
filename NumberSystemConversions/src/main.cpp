@@ -7,19 +7,19 @@
 //============================================================================
 
 #include <iostream>
+#include <string>
+#include <cmath>
 using namespace std;
 
 //FUNCTION PROTOTYPES:
 	string 	reverse(string);			//Reverses a given string
-	string	decimalToBinary(int);		//CONVERTS a decimal # (integer) to a binary # (string)
 	bool	checkBinary(string);		//Determines if a given string is a binary #, used by "binaryToDecimal"
-	int 	binaryToDecimal(string);	//CONVERTS from a binary # to a decimal #
-
-	string	showHex(int);				//Change to hexadecimal naming system (for numbers 10-15)
-	string	decimalToHex(int);			//CONVERTS a decimal # (int) into a hexadecimal #
-
-	int		showDec(char);				//Change a value in hex to its' decimal equivalent
+	int		showDec(char);
 	bool	checkHexadecimal(string);	//Determines if a given input is a valid hex number (0-9, a-f)
+
+	string	decimalToBinary(int);		//CONVERTS a decimal # (integer) to a binary # (string)
+	int 	binaryToDecimal(string);	//CONVERTS from a binary # to a decimal #
+	string	decimalToHex(int);			//CONVERTS a decimal # (int) into a hexadecimal #
 	int 	hexToDecimal(string);		//CONVERTS a hex value into a decimal value
 
 int main() {//main
@@ -73,24 +73,6 @@ int main() {//main
 					cout << "Enter a binary number up to 8 bits long: ";
 					cin >> userInput;
 
-//					if(checkBinary(userInput) == false) {//if (the given input is not binary)
-//						cout << "Error: Please enter a binary number (only include 1s and 0s)." << endl;
-//						cin.clear();
-//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//						break;
-//					}//if
-//					else if(userInput.length() > 8) {//else if (the given # is more than 8 digits long)
-//						cout << "Error: The maximum length is 8 digits, please try again." 		<< endl;
-//						cin.clear();
-//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//						break;
-//					}//else if
-//					else {//else
-//						cout << "The number "	<< userInput 	<< " in decimal is: "
-//								<< binaryToDecimal(userInput)	<< endl;
-//						break;
-//					}//else
-
 					if(checkBinary(userInput) == false) {//if (the given input is not binary)
 						if(userInput.length() > 8) {//if	(the string entered is longer than 8 characters)
 							cout << "Error: Please enter a binary # (only 1s and 0s) up to 8 digits long." << endl;
@@ -136,24 +118,6 @@ int main() {//main
 				case 4: //Call hexToDecimal function
 					cout << "Enter a hexadecimal number, up to 4 digits long: ";
 					cin  >> userInput;
-//
-//					if(userInput.length() > 4) {//if
-//						cout << "Error: The maximum number of digits is 4. Please try again." << endl;
-//						cin.clear();
-//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//						break;
-//					}//if
-//					else if(checkHexadecimal(userInput) == false) {//else if
-//						cout << "Error: Please enter a valid hex number. The options are 0-9, a-f." << endl;
-//						cin.clear();
-//						cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//						break;
-//					}//else if
-//					else {//else
-//						cout << "The number " << userInput << " in decimal is: "
-//								<< hexToDecimal(userInput) << endl;
-//						break;
-//					}//else
 
 					if(checkHexadecimal(userInput) == false) {//if (the given input is not a string of 0-9, a-f)
 						if(userInput.length() > 4) {//if
@@ -206,35 +170,6 @@ string	reverse(string input) {//reverseString
 	return returnStr;	//return the reversed string
 }//reverseString
 
-string	decimalToBinary(int decNum) {//toBinary
-	//Using repeated division:
-		string str 			= "";			//The converted number (in binary form)
-		int quotient		= decNum / 2;	//Will truncate any decimal/"floating point" part
-		int remainder		= decNum % 2;	//Stores the remainder when dividing "decNum" by 2
-
-		do {//do
-			if(remainder == 0) {//if
-				str += "0";
-			}//if
-			else {//else
-				str += "1";
-			}//else
-
-			remainder 	= quotient % 2;
-			quotient 	= quotient / 2;
-		}//do
-		while(quotient > 0);
-//To account for last digit, when quotient is 0:
-		if(remainder == 0) {//if
-			str += "0";
-		}//if
-		else {//else
-			str += "1";
-		}//else
-
-		return reverse(str);	//Since we end with the MSB, flip it to display in order
-}//toBinary
-
 bool checkBinary(string binaryNum) {//checkBinary
 	bool isBinary = true;
 
@@ -246,66 +181,6 @@ bool checkBinary(string binaryNum) {//checkBinary
 
 	return isBinary;
 }//checkBinary
-
-int	binaryToDecimal(string inputStr) {//toDecimal
-	string binaryNum 	= reverse(inputStr);	//Start from least significant bit (LSB)
-	int decimalNum		= 0;					//The converted number in decimal form
-
-	for(int i = 0; i < binaryNum.size(); i++) {//for
-		int temp = binaryNum[i] - '0';	//Converts the ASCII value of the char to its numerical value
-		//To convert the ASCII value to an integer value, we can subtract the value of the zero character, '0'
-		//Recall that the ASCII character '0' is 48 in decimal, and a digit like '9' is 57, so when we subtract
-		//by the '0', we are essentially subtracting the difference in decimal form, to get 9 in this case
-
-		//(it figures out the distance from '0')
-		decimalNum += ( (pow(2, i)) * temp );	//Multiply by the corresponding power of 2
-	}//for
-
-	return decimalNum;
-}//toDecimal
-
-string	showHex(int decNum) {//showHexForm
-	string returnStr = "";
-
-	if(decNum <= 9) {//if
-		returnStr = to_string(decNum);
-	}//if
-	else if(decNum == 10) {//else if
-		returnStr = "a";
-	}//else if
-	else if(decNum == 11) {//else if
-		returnStr = "b";
-	}//else if
-	else if(decNum == 12) {//else if
-		returnStr = "c";
-	}//else if
-	else if(decNum == 13) {//else if
-		returnStr = "d";
-	}//else if
-	else if(decNum == 14) {//else if
-		returnStr = "e";
-	}//else if
-	else {//else
-		returnStr = "f";
-	}//else
-
-	return returnStr;
-}//showHexForm
-
-string	decimalToHex(int decNum) {//toHexadecimal
-	string hexNum 	= "";				//To store the hex value that will be returned by function
-	int quotient 	= decNum / 16;
-	int remainder 	= decNum % 16;
-	hexNum			+= showHex(remainder);
-
-	while(quotient != 0) {//while
-		remainder	= quotient % 16;
-		hexNum		+= showHex(remainder);		//Convert the integer remainder into its hex equivalent
-		quotient	= quotient / 16;
-	}//while
-
-	return reverse(hexNum);
-}//toHexadecimal
 
 int	showDec(char hexValue) {//showDecimalVersion
 	int returnVal = 0;
@@ -347,16 +222,90 @@ bool checkHexadecimal(string hexNum) {//checkHex
 	return result;
 }//checkHex
 
-int	hexToDecimal(string hexValue) {//toDecimal
-	string reverseValue = reverse(hexValue);	//Allows our for loop to start from the most significant digit and increment up
-	int temp			= 0;	//Stores the converted hex values (10-15) as their decimal equivalents
-	int decimalNum 		= 0;	//Holds the running total for the decimal value
+string	decimalToBinary(int decNum) {//toBinary
+	//Using repeated division:
+		string str 			= "";			//The converted number (in binary form)
+		int quotient		= decNum / 2;	//Will truncate any decimal/"floating point" part
+		int remainder		= decNum % 2;	//Stores the remainder when dividing "decNum" by 2
 
-	for(int i = 0; i < reverseValue.size(); i++) {//for
-		temp = showDec(reverseValue[i]);
+		do {//do
+			if(remainder == 0) {//if
+				str += "0";
+			}//if
+			else {//else
+				str += "1";
+			}//else
 
-		decimalNum += (	(pow(16, i)) * temp	);
+			remainder 	= quotient % 2;
+			quotient 	= quotient / 2;
+		}//do
+		while(quotient > 0);
+//To account for last digit, when quotient is 0:
+		if(remainder == 0) {//if
+			str += "0";
+		}//if
+		else {//else
+			str += "1";
+		}//else
+
+		return reverse(str);	//Since we end with the MSB, flip it to display in order
+}//toBinary
+
+int	binaryToDecimal(string inputStr) {//toDecimal
+	string binaryNum 	= reverse(inputStr);	//Start from least significant bit (LSB)
+	int decimalNum		= 0;					//The converted number in decimal form
+
+	for(int i = 0; i < binaryNum.size(); i++) {//for
+		int temp = binaryNum[i] - '0';	//Converts the ASCII value of the char to its numerical value
+		//To convert the ASCII value to an integer value, we can subtract the value of the zero character, '0'
+		//Recall that the ASCII character '0' is 48 in decimal, and a digit like '9' is 57, so when we subtract
+		//by the '0', we are essentially subtracting the difference in decimal form, to get 9 in this case
+
+		//(it figures out the distance from '0')
+		decimalNum += ( (pow(2, i)) * temp );	//Multiply by the corresponding power of 2
 	}//for
 
 	return decimalNum;
 }//toDecimal
+
+string	decimalToHex(int decNum) {//toHexadecimal
+	string 	hexNum		= "";
+	int		remainder	= 0;
+
+	while(decNum != 0) {//while
+		remainder 		= decNum % 16;
+
+		if(remainder < 10) {//if
+			//To get values between 48 and 57 in ASCII table (the values 0-9)
+			hexNum.push_back(remainder + 48);
+		}//if
+		else {//else
+			//To get the values of lower case letters in ASCII table, since remainder will be 10 and above
+			hexNum.push_back(remainder + 87);
+		}//else
+
+		decNum = decNum / 16;
+	}//while
+
+	return reverse(hexNum);
+}//toHexadecimal
+
+int	hexToDecimal(string hexValue) {//hexToDecimal
+	string reverseValue = reverse(hexValue);	//Allows our for loop to increment up, starting from least significant digit
+	int temp			= 0;	//Stores the converted hex values as their decimal equivalents
+	int decimalNum 		= 0;	//Holds the running total for the decimal value
+
+	for(int i 	= 0; i < reverseValue.size(); i++) {//for
+		if( reverseValue[i] >= '0' && reverseValue[i] <= '9') {//if
+			temp	= reverseValue[i] - 48;
+		}//if
+		else if(reverseValue[i] >= 'a' && reverseValue[i] <= 'f') {//else if
+			temp	= reverseValue[i] - 87;
+		}//else if
+		else {}
+
+		decimalNum	= decimalNum + ( (pow(16, i))	* temp);
+	}//for
+
+	return decimalNum;
+}//hexToDecimal
