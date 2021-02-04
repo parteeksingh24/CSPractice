@@ -185,26 +185,11 @@ bool checkBinary(string binaryNum) {//checkBinary
 int	showDec(char hexValue) {//showDecimalVersion
 	int returnVal = 0;
 
-	if(		hexValue == 'f') {//if
-		returnVal = 15;
+	if(hexValue >= '0' && hexValue <= '9') {//if
+		returnVal = hexValue - 48;
 	}//if
-	else if(hexValue == 'e') {//else if
-		returnVal = 14;
-	}//else if
-	else if(hexValue == 'd') {//else if
-		returnVal = 13;
-	}//else if
-	else if(hexValue == 'c') {//else if
-		returnVal = 12;
-	}//else if
-	else if(hexValue == 'b') {//else if
-		returnVal = 11;
-	}//else if
-	else if(hexValue == 'a') {//else if
-		returnVal = 10;
-	}//else if
 	else {//else
-		returnVal = (hexValue - '0');
+		returnVal = hexValue - 87;
 	}//else
 
 	return returnVal;
@@ -213,10 +198,14 @@ int	showDec(char hexValue) {//showDecimalVersion
 bool checkHexadecimal(string hexNum) {//checkHex
 	bool result = true;
 
-	for(int i = 0; i < hexNum.size(); i++) {//for
+	for(unsigned int i = 0; i < hexNum.size(); i++) {//for
 		if(showDec(hexNum[i]) < 0 || showDec(hexNum[i]) > 15) {//if
 			result = false;
+			break;
 		}//if
+		else {//else
+			continue;
+		}//else
 	}//for
 
 	return result;
