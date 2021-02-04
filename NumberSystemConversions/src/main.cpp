@@ -6,9 +6,9 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <iostream>
-#include <string>
-#include <cmath>
+#include <iostream>		//cin, cout
+#include <string>		//strings
+#include <cmath>		//pow()
 using namespace std;
 
 //FUNCTION PROTOTYPES:
@@ -54,21 +54,33 @@ int main() {//main
 			//Determine which function to run based on given input, using a switch statement
 			switch(menuChoice) {//switch
 				case 1: //Call decimalToBinary function
-					cout << "Enter a non-negative decimal number: ";
+					cout << "Enter a non-negative decimal number up to 8 digits long: ";
 					cin	 >> decimalNum;
 
 					if(decimalNum < 0) {//if (the given number is negative)
-						cout << "Error: Please enter a non-negative number (0 and above) only" << endl;
+						if(to_string(decimalNum).length() > 8) {//if
+							cout << "Error: Please enter a non-negative number (0 and above)\n"
+									"\tup to 8 digits long." << endl;
+						}//if
+						else {//else (number is 8 bits or less, but still negative)
+							cout << "Error: Please enter a non-negative number (0 and above) only." << endl;
+						}//else
+
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
+					else if(to_string(decimalNum).length() > 8) {//else if (# is positive, but longer than 8 bits)
+						cout << "Error: The maximum length of the number is 8 digits.\n"
+								"\tPlease try again." << endl;
+						break;
+					}//else if
 					else {//else (the decimal number is 0 and above)
 						cout << "The number "	<< decimalNum 	<< " in binary is: "
 								<< decimalToBinary(decimalNum)	<< endl;
-						break;
 					}//else
 
+					break;
 				case 2: //Call binaryToDecimal function
 					cout << "Enter a binary number up to 8 bits long: ";
 					cin >> userInput;
@@ -96,25 +108,37 @@ int main() {//main
 					else {//else	(the input is both binary AND less than or equal to 8 bits long, so we convert and display result)
 						cout << "The number "	<< userInput 	<< " in decimal is: "
 								<< binaryToDecimal(userInput)	<< endl;
-						break;
 					}//else
 
+					break;
 				case 3: //Call decimalToHex function
-					cout << "Enter a non-negative decimal number: ";
+					cout << "Enter a non-negative decimal number up to 8 digits long: ";
 					cin	 >> decimalNum;
 
 					if(decimalNum < 0) {//if (the given number is negative)
-						cout << "Error: Please enter a non-negative number (0 and above) only" << endl;
+						if(to_string(decimalNum).length() > 8) {//if
+							cout << "Error: Please enter a non-negative number (0 and above)\n"
+									"\tup to 8 digits long." << endl;
+						}//if
+						else {//else (number is 8 bits or less, but still negative)
+							cout << "Error: Please enter a non-negative number (0 and above) only." << endl;
+						}//else
+
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
+					else if(to_string(decimalNum).length() > 8) {//else if (# is positive, but longer than 8 bits)
+						cout << "Error: The maximum length of the number is 8 digits.\n"
+								"\tPlease try again." << endl;
+						break;
+					}//else if
 					else {//else
 						cout << "The number " << decimalNum << " in hexadecimal is: "
 								<< decimalToHex(decimalNum) << endl;
-						break;
 					}//else
 
+					break;
 				case 4: //Call hexToDecimal function
 					cout << "Enter a hexadecimal number, up to 4 digits long: ";
 					cin  >> userInput;
@@ -144,9 +168,9 @@ int main() {//main
 					else {//else
 						cout << "The number " << userInput << " in decimal is: "
 								<< hexToDecimal(userInput) << endl;
-						break;
 					}//else
 
+					break;
 				case 9:	//Exit the program
 					cout << endl << "Program ending, have a nice day!";
 					break;
