@@ -13,8 +13,8 @@ using namespace std;
 
 //FUNCTION PROTOTYPES:
 	string 	reverse(string);			//Reverses a given string
+	int		showDec(char);				//Finds the decimal equivalent of a given hexadecimal character
 	bool	checkBinary(string);		//Determines if a given string is a binary #, used by "binaryToDecimal"
-	int		showDec(char);
 	bool	checkHexadecimal(string);	//Determines if a given input is a valid hex number (0-9, a-f)
 
 	string	decimalToBinary(int);		//CONVERTS a decimal # (integer) to a binary # (string)
@@ -24,10 +24,10 @@ using namespace std;
 
 int main() {//main
 //VARIABLES:
-	int 		menuChoice	= 0;	//Holds the user's choice in the main switch statement
-	const int 	EXIT_CODE 	= 9;	//Per the instructions, if the number 9 is entered, exit the program
-	int 		decimalNum	= 0;	//Used for the decimal conversions to binary and hex, respectively
-	string		userInput	= "";	//Stores the binary or hex number entered by user
+	int 		menuChoice	= 0;		//Holds the user's choice in the main switch statement
+	const int 	EXIT_CODE 	= 9;		//Per the instructions, if the number 9 is entered, exit the program
+	int 		decimalNum	= 0;		//Used for the decimal conversions to binary and hex, respectively
+	string		userInput	= "";		//Stores the binary or hex number entered by user
 
 //START OF PROGRAM:
 	//Display a welcome message, along with information about program:
@@ -170,18 +170,6 @@ string	reverse(string input) {//reverseString
 	return returnStr;	//return the reversed string
 }//reverseString
 
-bool checkBinary(string binaryNum) {//checkBinary
-	bool isBinary = true;
-
-	for(int i = 0; i < binaryNum.size(); i++) {//for
-		if(binaryNum[i] != '0' && binaryNum[i] != '1') {//if
-			isBinary = false;
-		}//if
-	}//for
-
-	return isBinary;
-}//checkBinary
-
 int	showDec(char hexValue) {//showDecimalVersion
 	int returnVal = 0;
 
@@ -194,6 +182,18 @@ int	showDec(char hexValue) {//showDecimalVersion
 
 	return returnVal;
 }//showDecimalVersion
+
+bool checkBinary(string binaryNum) {//checkBinary
+	bool isBinary = true;
+
+	for(int i = 0; i < binaryNum.size(); i++) {//for
+		if(binaryNum[i] != '0' && binaryNum[i] != '1') {//if
+			isBinary = false;
+		}//if
+	}//for
+
+	return isBinary;
+}//checkBinary
 
 bool checkHexadecimal(string hexNum) {//checkHex
 	bool result = true;
@@ -293,7 +293,7 @@ int	hexToDecimal(string hexValue) {//hexToDecimal
 		}//else if
 		else {}
 
-		decimalNum	= decimalNum + ( (pow(16, i))	* temp);
+		decimalNum	= decimalNum + ( (pow(16, i)) * temp );
 	}//for
 
 	return decimalNum;
