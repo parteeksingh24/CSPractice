@@ -50,12 +50,14 @@ int main() {//main
 
 			//Read in the user's choice
 			cin >> menuChoice;
+			cin.ignore();
 
 			//Determine which function to run based on given input, using a switch statement
 			switch(menuChoice) {//switch
 				case 1: //Call decimalToBinary function
 					cout << "Enter a non-negative decimal number up to 8 digits long: ";
 					cin	 >> decimalNum;
+					cin.ignore();
 
 					if(decimalNum < 0) {//if (the given number is negative)
 						if(to_string(decimalNum).length() > 8) {//if
@@ -63,11 +65,9 @@ int main() {//main
 									"\tup to 8 digits long." << endl;
 						}//if
 						else {//else (number is 8 bits or less, but still negative)
-							cout << "Error: Please enter a non-negative number (0 and above) only." << endl;
+							cout << "Error: Please enter a non-negative number (0 and above)." << endl;
 						}//else
 
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
 					else if(to_string(decimalNum).length() > 8) {//else if (# is positive, but longer than 8 bits)
@@ -83,26 +83,23 @@ int main() {//main
 					break;
 				case 2: //Call binaryToDecimal function
 					cout << "Enter a binary number up to 8 bits long: ";
-					cin >> userInput;
+					getline(cin, userInput);
 
 					if(checkBinary(userInput) == false) {//if (the given input is not binary)
 						if(userInput.length() > 8) {//if	(the string entered is longer than 8 characters)
-							cout << "Error: Please enter a binary # (only 1s and 0s) up to 8 digits long." << endl;
+							cout << "Error: Please enter a binary # (only 1s and 0s)"
+									"\tup to 8 digits long." << endl;
 						}//if
 						else {//else
 							//when the given value is less than 8 characters, the only error is not having all binary values
-							cout << "Error: Please enter a binary number (only 1s and 0s)."					<< endl;
+							cout << "Error: Please enter a binary number (only 1s and 0s)."	<< endl;
 						}//else
 
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
 					else if(userInput.length() > 8) {//else if	(the input is in binary form, but longer than 8 bits)
-						cout << "Error: the maximum length is 8 digits, please try again."					<< endl;
+						cout << "Error: the maximum length is 8 digits, please try again."	<< endl;
 
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//else if
 					else {//else	(the input is both binary AND less than or equal to 8 bits long, so we convert and display result)
@@ -114,6 +111,7 @@ int main() {//main
 				case 3: //Call decimalToHex function
 					cout << "Enter a non-negative decimal number up to 8 digits long: ";
 					cin	 >> decimalNum;
+					cin.ignore();
 
 					if(decimalNum < 0) {//if (the given number is negative)
 						if(to_string(decimalNum).length() > 8) {//if
@@ -121,11 +119,9 @@ int main() {//main
 									"\tup to 8 digits long." << endl;
 						}//if
 						else {//else (number is 8 bits or less, but still negative)
-							cout << "Error: Please enter a non-negative number (0 and above) only." << endl;
+							cout << "Error: Please enter a non-negative number (0 and above)." << endl;
 						}//else
 
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
 					else if(to_string(decimalNum).length() > 8) {//else if (# is positive, but longer than 8 bits)
@@ -141,28 +137,24 @@ int main() {//main
 					break;
 				case 4: //Call hexToDecimal function
 					cout << "Enter a hexadecimal number, up to 4 digits long: ";
-					cin  >> userInput;
+					getline(cin, userInput);
 
 					if(checkHexadecimal(userInput) == false) {//if (the given input is not a string of 0-9, a-f)
 						if(userInput.length() > 4) {//if
 							cout << "Error: Please enter a hexadecimal number up to 4 digits long.\n"
-									"The options are the numbers 0-9, and the letters a-f." << endl;
+									"\tThe options are the numbers 0-9, and the letters a-f." << endl;
 						}//if
 						else {//else
 							cout << "Error: Please enter a hexadecimal number. \n"
-									"The options are the numbers 0-9, and the letters a-f." << endl;
+									"\tThe options are the numbers 0-9, and the letters a-f." << endl;
 						}//else
 
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//if
 					else if(userInput.length() > 4) {//else if
 						cout << "Error: The maximum length for the number is 4 digits.\n"
-								"Please try again." << endl;
+								"\tPlease try again." << endl;
 
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						break;
 					}//else if
 					else {//else
@@ -176,7 +168,7 @@ int main() {//main
 					break;
 				default: //If none of the options are chosen, an error message will display
 					cout << "Error: Please select an option from the menu below. \n"
-						 << "The valid choices are the numbers 1, 2, 3, 4, and 9" << endl;
+						 << "\tThe valid choices are the numbers 1, 2, 3, 4, and 9" << endl;
 			}//switch
 		}//while
 
