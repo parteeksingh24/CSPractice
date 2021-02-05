@@ -60,11 +60,11 @@ int main() {//main
 				   when reading input from the keyboard. Without parameters, this will
 				   skip the newline character(\n) before reading any input later on,
 				   which allows a user to press ENTER and not have it affect the reading
-				   of data in the future.
+				   of data later on in the program.
 		 */
 
 	//To prevent the user from typing in a string of letters for the menu choice
-		while(cin.good() == false) {//while
+		while(cin.fail() == true) {//while
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			break;
@@ -265,24 +265,11 @@ bool checkHexadecimal(string hexNum) {//checkIfHex
 }//checkIfHex
 
 string	decimalToBinary(int decNum) {//decToBinary
-	//Using repeated division:
-		string str 			= "";			//The converted number (in binary form)
-		int quotient		= decNum / 2;	//Will truncate any decimal/"floating point" part
-		int remainder		= decNum % 2;	//Stores the remainder when dividing "decNum" by 2
+	string str 			= "";			//The converted number (in binary form)
+	int quotient		= decNum / 2;	//Will truncate any decimal/"floating point" part
+	int remainder		= decNum % 2;	//Stores the remainder when dividing "decNum" by 2
 
-		do {//do
-			if(remainder == 0) {//if
-				str += "0";
-			}//if
-			else {//else
-				str += "1";
-			}//else
-
-			remainder 	= quotient % 2;
-			quotient 	= quotient / 2;
-		}//do
-		while(quotient > 0);
-//To account for last digit, when quotient is 0:
+	do {//do
 		if(remainder == 0) {//if
 			str += "0";
 		}//if
@@ -290,7 +277,23 @@ string	decimalToBinary(int decNum) {//decToBinary
 			str += "1";
 		}//else
 
-		return reverse(str);	//Since we end with the MSB, flip it to display in order
+		remainder 	= quotient % 2;
+		quotient 	= quotient / 2;
+	}//do
+	while(quotient > 0);
+
+//To account for last digit, when quotient is 0:
+	if(decNum != 0) {//if
+		if(remainder == 0) {//if
+			str += "0";
+		}//if
+		else {//else
+			str += "1";
+		}//else
+	}//if
+	else{}
+
+	return reverse(str);	//Since we end with the MSB, flip it to display in order
 }//decToBinary
 
 int	binaryToDecimal(string inputStr) {//binaryToDecimal
