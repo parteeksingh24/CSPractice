@@ -9,6 +9,7 @@
 #include <iostream>						//Needed for input/output using cin, cout
 #include <string>						//For working with the C++ string class
 #include <cmath>						//Allows use of the pow() function
+#include <limits>						//For ignoring all invalid input
 using namespace std;					//The standard namespace is used (for cin, cout, etc)
 
 //FUNCTION PROTOTYPES:
@@ -150,8 +151,8 @@ int main() {//main
 				cout << "The number " 	<< userInput 	<< " in decimal is: "
 										<< decimalVal 	<< endl;
 			}//try
-			catch(string &invalidInput) {//catch
-				cout << invalidInput << endl;
+			catch(string &badInput) {//catch
+				cout << badInput << endl;
 			}//catch
 
 			break;
@@ -342,17 +343,17 @@ string	decimalToHex(string str) {//toHexadecimal
 int	hexToDecimal(string hexValue) {//hexToDecimal
 	string 	reverseValue 	= "";
 	int 	decimalNum		= 0; 	//Holds the running total for the decimal value
-	string	invalidInput	= "";
+	string	badInput		= "";
 
 	if(checkHexadecimal(hexValue) == false) {//if
-		invalidInput = "Error: Please enter a hexadecimal number. \n"
+		badInput = "Error: Please enter a hexadecimal number. \n"
 						"\tThe options are the numbers 0-9, and the letters a-f.";
-		throw invalidInput;
+		throw badInput;
 	}//if
 	else if(hexValue.length() > 4) {//else if
-		invalidInput = "Error: The maximum length for the number is 4 digits.\n"
+		badInput = "Error: The maximum length for the number is 4 digits.\n"
 						"\tPlease try again.";
-		throw invalidInput;
+		throw badInput;
 	}//else if
 	else {//else
 		reverseValue = reverse(hexValue); //Allows our for loop to increment up, starting from least significant digit
