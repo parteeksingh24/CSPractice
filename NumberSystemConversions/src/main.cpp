@@ -14,7 +14,6 @@ using namespace std;					//The standard namespace is used (for cin, cout, etc)
 //FUNCTION PROTOTYPES:
 	string 	reverse(string);			//Reverses a given string
 	int		showDec(char);				//Finds the decimal equivalent of a given hexadecimal character
-	bool	checkDecimal(string);		//Determines if a given input is a decimal value (0-9)
 	bool	checkBinary(string);		//Determines if a given string is a binary #, used by "binaryToDecimal"
 	bool	checkHexadecimal(string);	//Determines if a given input is a valid hex number (0-9, a-f)
 
@@ -133,40 +132,25 @@ int main() {//main
 			break;
 		case 3:
 			//Call decimalToHex function
-			cout << "Enter a non-negative decimal number up to 8 digits long: ";
-			getline(cin, decimalNum);
+			try {//try
+				cout << "Enter a non-negative decimal number up to 8 digits long: ";
+				getline(cin, decimalNum);
 
-			if(checkDecimal(decimalNum) == false) {//if
-				cout << "Error: Please enter a decimal number\n"
-						"\tafter returning to the main menu." << endl;
-				break;
-			}//if
-			else {//else
-				try {//try
-					if(stoi(decimalNum) < 0) {//if (the given number is negative)
-						if(decimalNum.length() > 8) {//if
-							cout << "Error: Please enter a non-negative number (0 and above)\n"
-									"\tup to 8 digits long." 	<< endl;
-						}//if
-						else {//else (number is 8 bits or less, but still negative)
-							cout << "Error: Please enter a non-negative number (0 and above)." 	<< endl;
-						}//else
-
-					}//if
-					else if(decimalNum.length() > 8) {//else if (# is positive, but longer than 8 bits)
-						cout << "Error: The maximum length of the number is 8 digits.\n"
-								"\tPlease try again." 			<< endl;
-					}//else if
-					else {//else
-						cout << "The number " << decimalNum 	<< " in hexadecimal is: "
-								<< decimalToHex(decimalNum) 	<< endl;
-					}//else
-				}//try
-				catch(out_of_range &error) {//catch
-					cout << "Error: Please enter a non-negative number (0 and above)\n"
-							"\tup to 8 digits long." 			<< endl;
-				}//catch
-			}//else
+				string hexValue = decimalToHex(decimalNum);
+				cout << "The number " 	<< decimalNum 	<< " in binary is: "
+										<< hexValue		<< endl;
+			}//try
+			catch(invalid_argument &error1) {//catch
+				cout << "Error: Please enter a decimal value!\n"
+						"\tReturning to main menu." << endl;
+			}//catch
+			catch(out_of_range &error2) {//catch
+				cout << "Error: Please enter a decimal value\n"
+						"\tup to 8 digits long." << endl;
+			}//catch
+			catch(string &badInput) {//catch
+				cout << badInput << endl;
+			}//catch
 
 			break;
 		case 4:
@@ -242,19 +226,6 @@ int	showDec(char hexValue) {//showDecimalValue
 
 	return returnVal;
 }//showDecimalValue
-
-bool checkDecimal(string decNum) {//checkDecimal
-	bool result = true;
-
-	for(int i = 0; i < decNum.length(); i++) {//for
-		if(isdigit(decNum[i]) == false && decNum[i] != '-') {//if
-			result = false;
-			break;
-		}//if
-	}//for
-
-	return result;
-}//checkDecimal
 
 bool checkBinary(string binaryNum) {//checkIfBinary
 	bool isBinary = true;
@@ -346,25 +317,36 @@ int	binaryToDecimal(string inputStr) {//binaryToDecimal
 	return decimalNum;
 }//binaryToDecimal
 
-string	decimalToHex(string decNum) {//toHexadecimal
+string	decimalToHex(string str) {//toHexadecimal
 	string 	hexNum		= "";
-	int temp			= stoi(decNum);
+	int 	decNum		= stoi(str);
 	int		remainder	= 0;
+	string 	badInput	= "";			//To hold the error if the number entered is negative, or longer than 8 digits
 
-	while(temp != 0) {//while
-		remainder 		= temp % 16;
+	if(decNum < 0) {//if
+		badInput = "Error: Please enter a non-negative (0 and above) value only.";
+		throw badInput;
+	}//if
+	else if(str.length() > 8) {//else if
+		badInput = "Error: The maximum length is 8 digits, please try again.";
+		throw badInput;
+	}//else if
+	else {//else
+		while(decNum != 0) {//while
+			remainder 		= decNum % 16;
 
-		if(remainder < 10) {//if
-			//To get values between 48 and 57 in ASCII table (the values 0-9)
-			hexNum.push_back(remainder + 48);
-		}//if
-		else {//else
-			//To get the values of lower case letters in ASCII table, since remainder will be 10 and above
-			hexNum.push_back(remainder + 87);
-		}//else
+			if(remainder < 10) {//if
+				//To get values between 48 and 57 in ASCII table (the values 0-9)
+				hexNum.push_back(remainder + 48);
+			}//if
+			else {//else
+				//To get the values of lower case letters in ASCII table, since remainder will be 10 and above
+				hexNum.push_back(remainder + 87);
+			}//else
 
-		temp = temp / 16;
-	}//while
+			decNum = decNum / 16;
+		}//while
+	}//else
 
 	return reverse(hexNum);
 }//toHexadecimal
