@@ -14,13 +14,13 @@ using namespace std;					//The standard namespace is used (for cin, cout, etc)
 //FUNCTION PROTOTYPES:
 	string 	reverse(string);			//Reverses a given string
 	int		showDec(char);				//Finds the decimal equivalent of a given hexadecimal character
-	bool	checkDecimal(string);
+	bool	checkDecimal(string);		//Determines if a given input is a decimal value (0-9)
 	bool	checkBinary(string);		//Determines if a given string is a binary #, used by "binaryToDecimal"
 	bool	checkHexadecimal(string);	//Determines if a given input is a valid hex number (0-9, a-f)
 
-	string	decimalToBinary(string);		//CONVERTS a decimal # (integer) to a binary # (string)
+	string	decimalToBinary(string);	//CONVERTS a decimal # (integer) to a binary # (string)
 	int 	binaryToDecimal(string);	//CONVERTS from a binary # to a decimal #
-	string	decimalToHex(string);			//CONVERTS a decimal # (int) into a hexadecimal #
+	string	decimalToHex(string);		//CONVERTS a decimal # (int) into a hexadecimal #
 	int 	hexToDecimal(string);		//CONVERTS a hex value into a decimal value
 
 int main() {//main
@@ -78,81 +78,71 @@ int main() {//main
 		 	 TODO add notes here!
 		 */
 
-	//Determine which function to run based on given input, using a switch statement
+		//Determine which function to run based on given input, using a switch statement
 		switch(menuChoice) {//switch
-			case 1:
+		case 1:
 			//Call decimalToBinary function
+			try {//try
 				cout << "Enter a non-negative decimal number up to 8 digits long: ";
 				getline(cin, decimalNum);
 
-				if(checkDecimal(decimalNum) == false) {//if
-					cout << "Error: Please enter a decimal number\n"
-							"\tafter returning to the main menu."	<< endl;
-					break;
-				}//if
-				else {//else
-					if(stoi(decimalNum) < 0) {//if (the given number is negative)
-						if(decimalNum.length() > 8) {//if
-							cout << "Error: Please enter a non-negative number (0 and above)\n"
-									"\tup to 8 digits long." 		<< endl;
-						}//if
-						else {//else (number is 8 bits or less, but still negative)
-							cout << "Error: Please enter a non-negative number (0 and above)." 	<< endl;
-						}//else
+				string binaryValue = decimalToBinary(decimalNum);
+				cout << "The number " << decimalNum 	<< " in binary is: "
+						<< binaryValue		<< endl;
+			}//try
+			catch(invalid_argument &error1) {//catch
+				cout << "Error: Please enter a decimal value!\n"
+						"\tReturning to main menu." << endl;
+			}//catch
+			catch(out_of_range &error2) {//catch
+				cout << "Error: Please enter a decimal value\n"
+						"\tup to 8 digits long." << endl;
+			}//catch
+			catch(string &badInput) {//catch
+				cout << badInput << endl;
+			}//catch
 
-						break;
-					}//if
-					else if(decimalNum.length() > 8) {//else if (# is positive, but longer than 8 bits)
-						cout << "Error: The maximum length of the number is 8 digits.\n"
-								"\tPlease try again." 			<< endl;
-						break;
-					}//else if
-					else {//else (the decimal number is 0 and above)
-						cout << "The number "	<< decimalNum 	<< " in binary is: "
-								<< decimalToBinary(decimalNum)	<< endl;
-					}//else
-				}//else
-
-				break;
-			case 2:
+			break;
+		case 2:
 			//Call binaryToDecimal function
-				cout << "Enter a binary number up to 8 bits long: ";
-				getline(cin, userInput);
+			cout << "Enter a binary number up to 8 bits long: ";
+			getline(cin, userInput);
 
-				if(checkBinary(userInput) == false) {//if (the given input is not binary)
-					if(userInput.length() > 8) {//if	(the string entered is longer than 8 characters)
-						cout << "Error: Please enter a binary number\n"
-								"\t(only 1s and 0s) up to 8 digits long." 					<< endl;
-					}//if
-					else {//else
-						//when the given value is less than 8 characters, the only error is not having all binary values
-						cout << "Error: Please enter a binary number (only 1s and 0s)."		<< endl;
-					}//else
-
-					break;
+			if(checkBinary(userInput) == false) {//if (the given input is not binary)
+				if(userInput.length() > 8) {//if	(the string entered is longer than 8 characters)
+					cout << "Error: Please enter a binary number\n"
+							"\t(only 1s and 0s) up to 8 digits long." 					<< endl;
 				}//if
-				else if(userInput.length() > 8) {//else if	(the input is in binary form, but longer than 8 bits)
-					cout << "Error: The maximum length is 8 digits, please try again."		<< endl;
-
-					break;
-				}//else if
-				else {//else	(the input is both binary AND less than or equal to 8 bits long, so we convert and display result)
-					cout << "The number "	<< userInput 	<< " in decimal is: "
-							<< binaryToDecimal(userInput)	<< endl;
+				else {//else
+					//when the given value is less than 8 characters, the only error is not having all binary values
+					cout << "Error: Please enter a binary number (only 1s and 0s)."		<< endl;
 				}//else
 
 				break;
-			case 3:
-			//Call decimalToHex function
-				cout << "Enter a non-negative decimal number up to 8 digits long: ";
-				getline(cin, decimalNum);
+			}//if
+			else if(userInput.length() > 8) {//else if	(the input is in binary form, but longer than 8 bits)
+				cout << "Error: The maximum length is 8 digits, please try again."		<< endl;
 
-				if(checkDecimal(decimalNum) == false) {//if
-					cout << "Error: Please enter a decimal number\n"
-							"\tafter returning to the main menu." << endl;
-					break;
-				}//if
-				else {//else
+				break;
+			}//else if
+			else {//else	(the input is both binary AND less than or equal to 8 bits long, so we convert and display result)
+				cout << "The number "	<< userInput 	<< " in decimal is: "
+						<< binaryToDecimal(userInput)	<< endl;
+			}//else
+
+			break;
+		case 3:
+			//Call decimalToHex function
+			cout << "Enter a non-negative decimal number up to 8 digits long: ";
+			getline(cin, decimalNum);
+
+			if(checkDecimal(decimalNum) == false) {//if
+				cout << "Error: Please enter a decimal number\n"
+						"\tafter returning to the main menu." << endl;
+				break;
+			}//if
+			else {//else
+				try {//try
 					if(stoi(decimalNum) < 0) {//if (the given number is negative)
 						if(decimalNum.length() > 8) {//if
 							cout << "Error: Please enter a non-negative number (0 and above)\n"
@@ -162,57 +152,60 @@ int main() {//main
 							cout << "Error: Please enter a non-negative number (0 and above)." 	<< endl;
 						}//else
 
-						break;
 					}//if
 					else if(decimalNum.length() > 8) {//else if (# is positive, but longer than 8 bits)
 						cout << "Error: The maximum length of the number is 8 digits.\n"
 								"\tPlease try again." 			<< endl;
-						break;
 					}//else if
 					else {//else
 						cout << "The number " << decimalNum 	<< " in hexadecimal is: "
 								<< decimalToHex(decimalNum) 	<< endl;
 					}//else
-				}//else
+				}//try
+				catch(out_of_range &error) {//catch
+					cout << "Error: Please enter a non-negative number (0 and above)\n"
+							"\tup to 8 digits long." 			<< endl;
+				}//catch
+			}//else
 
-				break;
-			case 4:
+			break;
+		case 4:
 			//Call hexToDecimal function
-				cout << "Enter a hexadecimal number, up to 4 digits long: ";
-				getline(cin, userInput);
+			cout << "Enter a hexadecimal number, up to 4 digits long: ";
+			getline(cin, userInput);
 
-				if(checkHexadecimal(userInput) == false) {//if (the given input is not a string of 0-9, a-f)
-					if(userInput.length() > 4) {//if
-						cout << "Error: Please enter a hexadecimal number up to 4 digits long.\n"
-								"\tThe options are the numbers 0-9, and the letters a-f." << endl;
-					}//if
-					else {//else
-						cout << "Error: Please enter a hexadecimal number. \n"
-								"\tThe options are the numbers 0-9, and the letters a-f." << endl;
-					}//else
-
-					break;
+			if(checkHexadecimal(userInput) == false) {//if (the given input is not a string of 0-9, a-f)
+				if(userInput.length() > 4) {//if
+					cout << "Error: Please enter a hexadecimal number up to 4 digits long.\n"
+							"\tThe options are the numbers 0-9, and the letters a-f." << endl;
 				}//if
-				else if(userInput.length() > 4) {//else if
-					cout << "Error: The maximum length for the number is 4 digits.\n"
-							"\tPlease try again." 		<< endl;
-
-					break;
-				}//else if
 				else {//else
-					cout << "The number " << userInput 	<< " in decimal is: "
-						 << hexToDecimal(userInput) 	<< endl;
+					cout << "Error: Please enter a hexadecimal number. \n"
+							"\tThe options are the numbers 0-9, and the letters a-f." << endl;
 				}//else
 
 				break;
-			case EXIT_CODE:
-			//Exit the program
-				cout << endl << "Program ending, have a nice day!";
+			}//if
+			else if(userInput.length() > 4) {//else if
+				cout << "Error: The maximum length for the number is 4 digits.\n"
+						"\tPlease try again." 		<< endl;
+
 				break;
-			default:
+			}//else if
+			else {//else
+				cout << "The number " << userInput 	<< " in decimal is: "
+						<< hexToDecimal(userInput) 	<< endl;
+			}//else
+
+			break;
+		case EXIT_CODE:
+			//Exit the program
+			cout << endl << "Program ending, have a nice day!";
+			break;
+		default:
 			//If none of the options are chosen, an error message will display
-				cout << "Error: Please select an option from the menu below. \n"
-					 << "\tThe valid choices are the numbers 1, 2, 3, 4, and 9." 			<< endl;
+			cout << "Error: Please select an option from the menu below. \n"
+			<< "\tThe valid choices are the numbers 1, 2, 3, 4, and 9." 			<< endl;
 		}//switch
 	}//while
 
@@ -291,37 +284,49 @@ bool checkHexadecimal(string hexNum) {//checkIfHex
 	return result;
 }//checkIfHex
 
-string	decimalToBinary(string decNum) {//decToBinary
-	string str 			= "";			//The converted number (in binary form)
-	int temp			= stoi(decNum);
-	int quotient		= temp / 2;	//Will truncate any decimal/"floating point" part
-	int remainder		= temp % 2;	//Stores the remainder when dividing "decNum" by 2
+string	decimalToBinary(string str) {//decToBinary
+	string 	binaryNum 	= "";			//The converted number (in binary form)
+	int 	decNum		= stoi(str);
+	string 	badInput	= "";			//To hold the error if the number eneter
 
-	do {//do
-		if(remainder == 0) {//if
-			str += "0";
-		}//if
-		else {//else
-			str += "1";
-		}//else
-
-		remainder 	= quotient % 2;
-		quotient 	= quotient / 2;
-	}//do
-	while(quotient > 0);
-
-//To account for last digit, when quotient is 0:
-	if(decNum != "0") {//if
-		if(remainder == 0) {//if
-			str += "0";
-		}//if
-		else {//else
-			str += "1";
-		}//else
+	if(decNum < 0) {//if
+		badInput = "Error: Please enter a non-negative (0 and above) value only.";
+		throw badInput;
 	}//if
-	else{}
+	else if(str.length() > 8) {//else if
+		badInput = "Error: The maximum length is 8 digits, please try again.";
+		throw badInput;
+	}//else if
+	else {//else
+		int quotient	= decNum / 2;	//Will truncate any decimal/"floating point" part
+		int remainder	= decNum % 2;	//Stores the remainder when dividing "decNum" by 2
 
-	return reverse(str);	//Since we end with the MSB, flip it to display in order
+		do {//do
+			if(remainder == 0) {//if
+				binaryNum += "0";
+			}//if
+			else {//else
+				binaryNum += "1";
+			}//else
+
+			remainder 	= quotient % 2;
+			quotient 	= quotient / 2;
+		}//do
+		while(quotient > 0);
+
+		//To account for last digit, when quotient is 0:
+		if(decNum != 0) {//if
+			if(remainder == 0) {//if
+				binaryNum += "0";
+			}//if
+			else {//else
+				binaryNum += "1";
+			}//else
+		}//if
+		else{}
+	}//else
+
+	return reverse(binaryNum);
 }//decToBinary
 
 int	binaryToDecimal(string inputStr) {//binaryToDecimal
