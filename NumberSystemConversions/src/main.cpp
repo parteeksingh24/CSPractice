@@ -244,15 +244,14 @@ string	decimalToBinary(string str) {//decToBinary
 		throw badInput;
 	}//else if
 	else {//else
-
 		int remainder = 0;			//Since we are dividing by 2, this will be either 0 or 1
+
 		do {//do
 			remainder = decNum % 2;	//Stores the remainder when dividing "decNum" by 2
 			binaryNum += to_string(remainder);
 			decNum = decNum / 2;	//Will truncate any decimal/"floating point" part
 		}//do
 		while(decNum != 0);
-
 	}//else
 
 	return reverse(binaryNum);
@@ -264,25 +263,29 @@ int	binaryToDecimal(string inputStr) {//binaryToDecimal
 	string	badInput	= "";		//Holds any exception thrown, if binary string given is invalid
 
 	if(checkBinary(inputStr) == false) {//if
-		badInput	= "Error: Please enter a binary number (only include 1s and 0s).";
+		badInput		= "Error: Please enter a binary number (only include 1s and 0s).";
 		throw badInput;
 	}//if
 	else if(inputStr.length() > 8) {//else if
-		badInput	= "Error: The maximum length is 8 digits, please try again.";
+		badInput		= "Error: The maximum length is 8 digits, please try again.";
 		throw badInput;
 	}//else if
 	else {//else
-		binaryNum	= reverse(inputStr);	//Start from least significant bit (LSB)
-		int temp	= 0;					//Will hold the numerical value of the characters in string, based on ASCII table
+		binaryNum		= reverse(inputStr);	//Start from least significant bit (LSB)
+		int temp		= 0;					//Will hold the numerical value of the characters in string, based on ASCII table
 
 		for(int i = 0; i < binaryNum.size(); i++) {//for
-			temp = binaryNum[i] - '0';	//Converts the ASCII value of the char to its numerical value
-			//To convert the ASCII value to an integer value, we can subtract the value of the zero character, '0'
-			//Recall that the ASCII character '0' is 48 in decimal, and a digit like '9' is 57, so when we subtract
-			//by the '0', we are essentially subtracting the difference in decimal form, to get 9 in this case
+			temp = binaryNum[i] - '0';
+				/*
+				 Converts the ASCII value of the char to its numerical value.
+				 To convert the ASCII value to an integer value, we can subtract the value of the zero character, '0'.
+				 Recall that the ASCII character '0' is 48 in decimal, and a digit like '9' is 57, so when we subtract
+					by the '0', we are essentially subtracting the difference in decimal form
 
-			//(it figures out the distance from '0')
-			decimalNum += ( (pow(2, i)) * temp );	//Multiply by the corresponding power of 2
+				 Basically, it figures out the distance from '0'!
+				 */
+
+			decimalNum 	+= ( (pow(2, i)) * temp );	//Multiply by the corresponding power of 2
 		}//for
 	}//else
 
@@ -305,7 +308,7 @@ string	decimalToHex(string str) {//toHexadecimal
 	}//else if
 	else {//else
 		while(decNum != 0) {//while
-			remainder 		= decNum % 16;
+			remainder 	= decNum % 16;
 
 			if(remainder < 10) {//if
 				//To get values between 48 and 57 in ASCII table (the values 0-9)
@@ -316,7 +319,7 @@ string	decimalToHex(string str) {//toHexadecimal
 				hexNum.push_back(remainder + 87);
 			}//else
 
-			decNum = decNum / 16;
+			decNum 		= decNum / 16;
 		}//while
 	}//else
 
