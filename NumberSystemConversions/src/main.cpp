@@ -10,9 +10,22 @@
 #include <string>						//For working with the C++ string class
 #include <cmath>						//Allows use of the pow() function
 #include <limits>						//For ignoring all invalid input
+#include <map>							//For the menu choice entered by the user
 using namespace std;					//The standard namespace is used (for cin, cout, etc)
 
+enum Choices {//menuOptions
+	notDefined,
+	option1,
+	option2,
+	option3,
+	option4,
+	endProgram
+};
+
+map<string, Choices> menu;
+
 //FUNCTION PROTOTYPES:
+	void	initialize(void);			//Sets the map, "menu", to hold the valid menu choices
 	string 	reverse(string);			//Reverses a given string
 	int		showDec(char);				//Finds the decimal equivalent of a given hexadecimal character
 	bool	checkBinary(string);		//Determines if a given string is a binary #, used by "binaryToDecimal"
@@ -25,12 +38,14 @@ using namespace std;					//The standard namespace is used (for cin, cout, etc)
 
 int main() {//main
 //VARIABLES:
-	int 		menuChoice	= 0;		//Holds the user's choice for the main menu (used in switch statement)
-	const int 	EXIT_CODE 	= 9;		//Per the instructions, if the number 9 is entered, exit the program
-	string 		decimalNum	= "";		//Used for the decimal conversions to binary and hex, respectively
-	string		userInput	= "";		//Stores the binary or hex number entered by user
+	string 			menuChoice	= "";	//Holds the user's choice for the main menu (used in switch statement)
+	const string 	EXIT_CODE 	= "9";	//Per the instructions, if the number 9 is entered, exit the program
+	string 			decimalNum	= "";	//Used for the decimal conversions to binary and hex, respectively
+	string			userInput	= "";	//Stores the binary or hex number entered by user
 
 //START OF PROGRAM:
+	initialize();						//Set up the map so that the valid menu options are stored in the enum
+
 //Display a welcome message, along with information about program:
 	cout << "\tWelcome to the Numeric Converter!" 					<< endl;
 	cout << "===================================================" 	<< endl;
@@ -54,15 +69,7 @@ int main() {//main
 		 */
 
 	//Read in the user's choice:
-		cin >> menuChoice;
-		cin.ignore();
-		/*
-			 NOTE: the ignore function tells the cin object to skip one or more characters
-				   when reading input from the keyboard. Without parameters, this will
-				   skip the newline character(\n) before reading any input later on,
-				   which allows a user to press ENTER and not have it affect the reading
-				   of data later on in the program.
-		 */
+		getline(cin, menuChoice);
 
 	//To prevent the user from typing in a string of letters for the menu choice
 		while(cin.fail() == true) {//while
@@ -79,8 +86,8 @@ int main() {//main
 		 */
 
 		//Determine which function to run based on given input, using a switch statement
-		switch(menuChoice) {//switch
-		case 1:
+		switch(menu[menuChoice]) {//switch
+		case option1:
 			//Call decimalToBinary function
 			try {//try
 				cout << "Enter a non-negative decimal number up to 8 digits long: ";
@@ -103,7 +110,7 @@ int main() {//main
 			}//catch
 
 			break;
-		case 2:
+		case option2:
 			//Call binaryToDecimal function
 			try {//try
 				cout << "Enter a binary number up to 8 bits long: ";
@@ -118,7 +125,7 @@ int main() {//main
 			}//catch
 
 			break;
-		case 3:
+		case option3:
 			//Call decimalToHex function
 			try {//try
 				cout << "Enter a non-negative decimal number up to 8 digits long: ";
@@ -141,7 +148,7 @@ int main() {//main
 			}//catch
 
 			break;
-		case 4:
+		case option4:
 			//Call hexToDecimal function
 			try {//try
 				cout << "Enter a hexadecimal number, up to 4 digits long: ";
@@ -156,7 +163,7 @@ int main() {//main
 			}//catch
 
 			break;
-		case EXIT_CODE:
+		case endProgram:
 			//Exit the program
 			cout << endl << "Program ending, have a nice day!";
 			break;
@@ -173,6 +180,14 @@ int main() {//main
 
 //FUNCTIONS:
 //----------------------------------------------------------------
+void initialize(void) {//initializeMenu
+	menu["1"] = option1;
+	menu["2"] = option2;
+	menu["3"] = option3;
+	menu["4"] = option4;
+	menu["9"] = endProgram;
+}//initializeMenu
+
 string reverse(string input) {//reverseAGivenString
 	string returnStr = "";			//This is where we store the reversed string
 
