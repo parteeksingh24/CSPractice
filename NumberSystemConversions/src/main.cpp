@@ -232,8 +232,8 @@ bool checkHexadecimal(string hexNum) {//checkIfHex
 
 string	decimalToBinary(string str) {//decToBinary
 	string 	binaryNum 	= "";			//The converted number (in binary form)
-	int 	decNum		= stoi(str);
-	string 	badInput	= "";			//To hold the error if the number eneter
+	int 	decNum		= stoi(str);	//The integer version of the given input
+	string 	badInput	= "";			//To hold the error if the number entered is invalid
 
 	if(decNum < 0) {//if
 		badInput = "Error: Please enter a non-negative (0 and above) value only.";
@@ -244,32 +244,15 @@ string	decimalToBinary(string str) {//decToBinary
 		throw badInput;
 	}//else if
 	else {//else
-		int quotient	= decNum / 2;	//Will truncate any decimal/"floating point" part
-		int remainder	= decNum % 2;	//Stores the remainder when dividing "decNum" by 2
 
+		int remainder = 0;			//Since we are dividing by 2, this will be either 0 or 1
 		do {//do
-			if(remainder == 0) {//if
-				binaryNum += "0";
-			}//if
-			else {//else
-				binaryNum += "1";
-			}//else
-
-			remainder 	= quotient % 2;
-			quotient 	= quotient / 2;
+			remainder = decNum % 2;	//Stores the remainder when dividing "decNum" by 2
+			binaryNum += to_string(remainder);
+			decNum = decNum / 2;	//Will truncate any decimal/"floating point" part
 		}//do
-		while(quotient > 0);
+		while(decNum != 0);
 
-		//To account for last digit, when quotient is 0:
-		if(decNum != 0) {//if
-			if(remainder == 0) {//if
-				binaryNum += "0";
-			}//if
-			else {//else
-				binaryNum += "1";
-			}//else
-		}//if
-		else{}
 	}//else
 
 	return reverse(binaryNum);
