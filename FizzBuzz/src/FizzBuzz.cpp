@@ -18,20 +18,23 @@ using namespace std;
 
 int main() {//main
 
-	for(int i = 1; i <= 30; i++) {//for
-		if(i % 3 == 0) {//if
+//Beginning with the classic FizzBuzz question, with values from 1 to 100:
+	for(int i = 1; i <= 100; i++) {//for
+		if(i % 3 == 0) {//if	(the current number is a multiple of 3)
 			cout << "Fizz";
 		}//if
-		if(i % 5 == 0) {//if
+		if(i % 5 == 0) {//if	(the number is a multiple of 5)
 			cout << "Buzz";
 		}//if
-		if(i % 3 != 0 && i % 5 != 0) {//if
-			cout << i;
+		if(i % 3 != 0 && i % 5 != 0) {//if	(the number is not a multiple of 3 or 5)
+			cout << i;		//If not a multiple of 3 or 5, just print the number out
 		}//if
 
-		cout << endl;
+		cout << endl;		//To space out the results
 	}//for
 
+
+//Ending the program with an exit message, and return code 0 to indicate no errors:
 	cout << endl;
 	cout << "Program ending, have a nice day!" << endl;
 	return 0;
