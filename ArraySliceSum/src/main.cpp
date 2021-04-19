@@ -44,19 +44,19 @@ int main() {//main
 //FUNCTIONS:
 //----------------------------------------------------------------------
 
-int sliceSum(std::vector<int> arr, int n) {//sliceSum
+int sliceSum(vector<int> intArray, int n) {//sliceSum
 	int sum	=	0;		//The sum to return, based on size of input "n"
 	if(n <= 0) {//if (the input given is negative, or 0)
 		sum = 0;			//In this case, the sum will be 0
 	}//if
-	else if(n > 0 && n <= arr.size()) {//else if (the size is up to array size)
+	else if(n > 0 && n <= intArray.size()) {//else if (the size is up to array size)
 		for(int i = 0; i <= n - 1; i++) {//for
-			sum += arr[i];	//Add up each integer array value to the total sum
+			sum += intArray[i];	//Add up each integer array value to the total sum
 		}//for
 	}//else if
 	else {//else (if n is bigger than the size of array)
-		for(int i = 0; i < arr.size(); i++) {//for
-			sum += arr[i];	//Add up *all* values in array
+		for(int i = 0; i < intArray.size(); i++) {//for
+			sum += intArray[i];	//Add up *all* values in array
 		}//for
 	}//else
 
