@@ -19,20 +19,42 @@ using namespace std;
 int main() {//main
 
 //Beginning with the classic FizzBuzz question, with values from 1 to 100:
-	for(int i = 1; i <= 100; i++) {//for
-		if(i % 3 == 0) {//if	(the current number is a multiple of 3)
-			cout << "Fizz";
-		}//if
-		if(i % 5 == 0) {//if	(the number is a multiple of 5)
-			cout << "Buzz";
-		}//if
-		if(i % 3 != 0 && i % 5 != 0) {//if	(the number is not a multiple of 3 or 5)
-			cout << i;		//If not a multiple of 3 or 5, just print the number out
-		}//if
+//	for(int i = 1; i <= 100; i++) {//for
+//		if(i % 3 == 0) {//if	(the current number is a multiple of 3)
+//			cout << "Fizz";
+//		}//if
+//		if(i % 5 == 0) {//if	(the number is a multiple of 5)
+//			cout << "Buzz";
+//		}//if
+//		if(i % 3 != 0 && i % 5 != 0) {//if	(the number is not a multiple of 3 or 5)
+//			cout << i;		//If not a multiple of 3 or 5, just print the number out
+//		}//if
+//
+//		cout << endl;		//To space out the results
+//	}//for
 
-		cout << endl;		//To space out the results
-	}//for
+//Now, let's only replace the digits 3, 5 with the words "Fizz" and "Buzz":
+	for(int i = 10; i < 30; i++) {//for
+		//First we must convert the number to a string:
+		string tempStr = to_string(i);
 
+		//Next, we will go through this number/string and look for a 3/5:
+		for(int k = 0; k < tempStr.size(); k++) {//for (inner)
+			if(tempStr[k] == '3') {//if
+				tempStr.erase(k, 1);	//Delete the character 3 if we find a match
+				tempStr += "Fizz";		//Then, add the word Fizz at the end instead!
+			}//if
+			else if(tempStr[k] == '5') {//else if
+				tempStr.erase(k, 1);	//Delete the 5 if we see one in the number/string
+				tempStr += "Buzz";		//Then, add the word Buzz instead!
+			}//else if
+			else {//else
+				continue;
+			}//else
+		}//for (inner)
+
+		cout << tempStr << endl;
+	}//for (outer)
 
 //Ending the program with an exit message, and return code 0 to indicate no errors:
 	cout << endl;
