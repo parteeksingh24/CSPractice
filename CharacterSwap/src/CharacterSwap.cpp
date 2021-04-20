@@ -18,6 +18,7 @@ int main() {//main
 	cout << doubleSwap("dzefadbbaf", 'a', 'f')	<< endl;	//dzeafdbbfa
 
 	cout << doubleSwap("1244526", '2', '8')		<< endl;	//1844586
+	cout << doubleSwap("12345678", '0', '9') 	<< endl;	//12345678
 
 	cout << endl;
 	cout << "Program ending, have a nice day!" 	<< endl;
@@ -34,7 +35,8 @@ string doubleSwap(string inputStr, char c1, char c2) {//doubleSwap
 		}//if
 		else if(inputStr[i] == c2) {//if
 			inputStr[i] = c1;
-		}//if
+		}//else if
+		else {}
 	}//for
 
 	return inputStr;
