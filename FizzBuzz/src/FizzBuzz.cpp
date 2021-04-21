@@ -34,19 +34,17 @@ int main() {//main
 //	}//for
 
 //Now, let's only replace the digits 3, 5 with the words "Fizz" and "Buzz":
-	for(int i = 10; i < 30; i++) {//for
+	for(int i = 0; i <= 35; i++) {//for
 		//First we must convert the number to a string:
 		string tempStr = to_string(i);
 
 		//Next, we will go through this number/string and look for a 3/5:
 		for(int k = 0; k < tempStr.size(); k++) {//for (inner)
 			if(tempStr[k] == '3') {//if
-				tempStr.erase(k, 1);	//Delete the character 3 if we find a match
-				tempStr += "Fizz";		//Then, add the word Fizz at the end instead!
+				tempStr.replace(k, 1, "Fizz");
 			}//if
 			else if(tempStr[k] == '5') {//else if
-				tempStr.erase(k, 1);	//Delete the 5 if we see one in the number/string
-				tempStr += "Buzz";		//Then, add the word Buzz instead!
+				tempStr.replace(k, 1, "Buzz");
 			}//else if
 			else {//else
 				continue;
